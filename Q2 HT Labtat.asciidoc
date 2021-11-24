@@ -1,0 +1,85 @@
++*In[1]:*+
+[source, ipython3]
+----
+import pandas as pd
+import numpy as np
+from scipy import stats
+from scipy.stats import norm
+----
+
+
++*In[7]:*+
+[source, ipython3]
+----
+labtat=pd.read_csv('C:/Users/prate/Downloads/Assignment/HTA/LabTAT.csv')
+cutlet.head() 
+
+----
+
+
++*Out[7]:*+
+----
+[cols=",,,,",options="header",]
+|===
+| |Laboratory 1 |Laboratory 2 |Laboratory 3 |Laboratory 4
+|0 |185.35 |165.53 |176.70 |166.13
+|1 |170.49 |185.91 |198.45 |160.79
+|2 |192.77 |194.92 |201.23 |185.18
+|3 |177.33 |183.00 |199.61 |176.42
+|4 |193.41 |169.57 |204.63 |152.60
+|===
+----
+
+
++*In[8]:*+
+[source, ipython3]
+----
+labtat.isnull().sum()
+----
+
+
++*Out[8]:*+
+----Laboratory 1    0
+Laboratory 2    0
+Laboratory 3    0
+Laboratory 4    0
+dtype: int64----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+#Analysis of varaince between more than 2 samples or columns     ----->  Assume Null Hypothesis Ho as No Varaince: All samples TAT population means are same
+#u1=u2=u3=u4
+
+#AND Alternate Hypothesis Ha as It has Variance: Atleast one sample TAT population mean is different
+----
+
+
++*In[13]:*+
+[source, ipython3]
+----
+import scipy.stats as stats
+stats.f_oneway(labtat.iloc[:,0], labtat.iloc[:,1],labtat.iloc[:,2],labtat.iloc[:,3])
+----
+
+
++*Out[13]:*+
+----F_onewayResult(statistic=118.70421654401437, pvalue=2.1156708949992414e-57)----
+
+
++*In[8]:*+
+[source, ipython3]
+----
+# compare p_value with α = 0.05 (At 5% significance level)
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+#Inference:
+    #As (p-value=0) < (α = 0.05); Reject Null Hypothesis,
+    #i.e. Atleast one sample TAT population mean is different,
+    #Thus there is variance or difference in average Turn Around Time (TAT) of reports of the laboratories on their preferred list.
+----

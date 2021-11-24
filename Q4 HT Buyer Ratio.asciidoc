@@ -1,0 +1,106 @@
++*In[5]:*+
+[source, ipython3]
+----
+import pandas as pd
+import numpy as np
+from scipy import stats
+from scipy.stats import norm
+from scipy.stats import chi2_contingency
+----
+
+
++*In[7]:*+
+[source, ipython3]
+----
+br=pd.read_csv('C:/Users/prate/Downloads/Assignment/HTA/BuyerRatio.csv')
+br
+
+----
+
+
++*Out[7]:*+
+----
+[cols=",,,,,",options="header",]
+|===
+| |Observed Values |East |West |North |South
+|0 |Males |50 |142 |131 |70
+|1 |Females |435 |1523 |1356 |750
+|===
+----
+
+
++*In[15]:*+
+[source, ipython3]
+----
+df=br.iloc[:,1:5]
+----
+
+
++*In[16]:*+
+[source, ipython3]
+----
+df
+----
+
+
++*Out[16]:*+
+----
+[cols=",,,,",options="header",]
+|===
+| |East |West |North |South
+|0 |50 |142 |131 |70
+|1 |435 |1523 |1356 |750
+|===
+----
+
+
++*In[17]:*+
+[source, ipython3]
+----
+df.isnull().sum()
+----
+
+
++*Out[17]:*+
+----East     0
+West     0
+North    0
+South    0
+dtype: int64----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+#Assume Null hyposthesis as Ho  All proportions are equal
+# Alternate hypothesis as Ha (Not all Proportions are equal)
+----
+
+
++*In[18]:*+
+[source, ipython3]
+----
+chi2_contingency(df)
+----
+
+
++*Out[18]:*+
+----(1.595945538661058,
+ 0.6603094907091882,
+ 3,
+ array([[  42.76531299,  146.81287862,  131.11756787,   72.30424052],
+        [ 442.23468701, 1518.18712138, 1355.88243213,  747.69575948]]))----
+
+
++*In[8]:*+
+[source, ipython3]
+----
+# compare p_value with α = 0.05 (At 5% significance level)
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+#Inference: As (p_value=0..6603) > (α = 0.05); Accept Null Hypothesis i.e.All proportions are equal
+----

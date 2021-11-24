@@ -1,0 +1,182 @@
++*In[2]:*+
+[source, ipython3]
+----
+import pandas as pd
+import numpy as np
+from scipy import stats
+from scipy.stats import norm
+----
+
+
++*In[3]:*+
+[source, ipython3]
+----
+cutlet=pd.read_csv('C:/Users/prate/Downloads/Assignment/HTA/Cutlets.csv')
+cutlet.head() 
+
+----
+
+
++*Out[3]:*+
+----
+[cols=",,",options="header",]
+|===
+| |Unit A |Unit B
+|0 |6.8090 |6.7703
+|1 |6.4376 |7.5093
+|2 |6.9157 |6.7300
+|3 |7.3012 |6.7878
+|4 |7.4488 |7.1522
+|===
+----
+
+
++*In[5]:*+
+[source, ipython3]
+----
+cutlet.isnull().sum()
+----
+
+
++*Out[5]:*+
+----Unit A    0
+Unit B    0
+dtype: int64----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+#Assume Null hyposthesis as Ho: μ1 = μ2 (There is no difference in diameters of cutlets between two units) Thus Alternate hypothesis as Ha: μ1 ≠ μ2 (There is significant difference in diameters of cutlets between two units) 2 Sample 2 Tail test applicable
+----
+
+
++*In[7]:*+
+[source, ipython3]
+----
+unitA=pd.Series(cutlet.iloc[:,0])
+unitA
+----
+
+
++*Out[7]:*+
+----0     6.8090
+1     6.4376
+2     6.9157
+3     7.3012
+4     7.4488
+5     7.3871
+6     6.8755
+7     7.0621
+8     6.6840
+9     6.8236
+10    7.3930
+11    7.5169
+12    6.9246
+13    6.9256
+14    6.5797
+15    6.8394
+16    6.5970
+17    7.2705
+18    7.2828
+19    7.3495
+20    6.9438
+21    7.1560
+22    6.5341
+23    7.2854
+24    6.9952
+25    6.8568
+26    7.2163
+27    6.6801
+28    6.9431
+29    7.0852
+30    6.7794
+31    7.2783
+32    7.1561
+33    7.3943
+34    6.9405
+Name: Unit A, dtype: float64----
+
+
++*In[8]:*+
+[source, ipython3]
+----
+unitB=pd.Series(cutlet.iloc[:,1])
+unitB
+----
+
+
++*Out[8]:*+
+----0     6.7703
+1     7.5093
+2     6.7300
+3     6.7878
+4     7.1522
+5     6.8110
+6     7.2212
+7     6.6606
+8     7.2402
+9     7.0503
+10    6.8810
+11    7.4059
+12    6.7652
+13    6.0380
+14    7.1581
+15    7.0240
+16    6.6672
+17    7.4314
+18    7.3070
+19    6.7478
+20    6.8889
+21    7.4220
+22    6.5217
+23    7.1688
+24    6.7594
+25    6.9399
+26    7.0133
+27    6.9182
+28    6.3346
+29    7.5459
+30    7.0992
+31    7.1180
+32    6.6965
+33    6.5780
+34    7.3875
+Name: Unit B, dtype: float64----
+
+
++*In[9]:*+
+[source, ipython3]
+----
+p_value=stats.ttest_ind(unitA,unitB)
+p_value
+----
+
+
++*Out[9]:*+
+----Ttest_indResult(statistic=0.7228688704678063, pvalue=0.4722394724599501)----
+
+
++*In[10]:*+
+[source, ipython3]
+----
+p_value[1]     # 2-tail probability
+----
+
+
++*Out[10]:*+
+----0.4722394724599501----
+
+
++*In[8]:*+
+[source, ipython3]
+----
+# compare p_value with α = 0.05 (At 5% significance level)
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+#Inference: As (p_value=0.4722) > (α = 0.05); Accept Null Hypothesis i.e. μ1 = μ2 ( Thus, there is no difference in diameters of cutlets between two units
+----

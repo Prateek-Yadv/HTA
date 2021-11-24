@@ -1,0 +1,110 @@
++*In[9]:*+
+[source, ipython3]
+----
+import pandas as pd
+import numpy as np
+from scipy import stats
+from scipy.stats import norm
+from scipy.stats import chi2_contingency
+----
+
+
++*In[10]:*+
+[source, ipython3]
+----
+cof=pd.read_csv('C:/Users/prate/Downloads/Assignment/HTA/Costomer+OrderForm.csv')
+cof.head
+
+----
+
+
++*Out[10]:*+
+----<bound method NDFrame.head of     Phillippines   Indonesia       Malta       India
+0     Error Free  Error Free   Defective  Error Free
+1     Error Free  Error Free  Error Free   Defective
+2     Error Free   Defective   Defective  Error Free
+3     Error Free  Error Free  Error Free  Error Free
+4     Error Free  Error Free   Defective  Error Free
+..           ...         ...         ...         ...
+295   Error Free  Error Free  Error Free  Error Free
+296   Error Free  Error Free  Error Free  Error Free
+297   Error Free  Error Free   Defective  Error Free
+298   Error Free  Error Free  Error Free  Error Free
+299   Error Free   Defective   Defective  Error Free
+
+[300 rows x 4 columns]>----
+
+
++*In[17]:*+
+[source, ipython3]
+----
+cof['Phillippines'].value_counts(),cof['Indonesia'].value_counts(),cof['Malta'].value_counts(),cof['India'].value_counts()
+----
+
+
++*Out[17]:*+
+----(Error Free    271
+ Defective      29
+ Name: Phillippines, dtype: int64,
+ Error Free    267
+ Defective      33
+ Name: Indonesia, dtype: int64,
+ Error Free    269
+ Defective      31
+ Name: Malta, dtype: int64,
+ Error Free    280
+ Defective      20
+ Name: India, dtype: int64)----
+
+
++*In[5]:*+
+[source, ipython3]
+----
+cof.isnull().sum()
+----
+
+
++*Out[5]:*+
+----Phillippines    0
+Indonesia       0
+Malta           0
+India           0
+dtype: int64----
+
+
++*In[18]:*+
+[source, ipython3]
+----
+chi2_contingency([[271,267,269,280],[29,33,31,20]])
+----
+
+
++*Out[18]:*+
+----(3.858960685820355,
+ 0.2771020991233135,
+ 3,
+ array([[271.75, 271.75, 271.75, 271.75],
+        [ 28.25,  28.25,  28.25,  28.25]]))----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+#Assume Null Hypothesis as Ho: Independence of categorical variables (customer order forms defective % does not varies by centre) Thus, Alternative hypothesis as Ha Dependence of categorical variables (customer order forms defective % varies by centre)
+
+----
+
+
++*In[8]:*+
+[source, ipython3]
+----
+# compare p_value with α = 0.05 (At 5% significance level)
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+#Inference: As (p_value = 0.2771) > (α = 0.05); Accept Null Hypthesis i.e. Independence of categorical variables Thus, customer order forms defective % does not varies by centre
+----
